@@ -86,8 +86,10 @@ configMap:
 # For example, {{ REDACTED_EMAIL }} becomes {{` {{ REDACTED_EMAIL }} `}}.
 config:
   exporters:
-    prometheus:
-      endpoint: ${env:MY_POD_IP}:8889    
+    # prometheus:
+    #   endpoint: ${env:MY_POD_IP}:8889  
+    file:
+      path: /data/metrics.json  
     debug: {}
   extensions:
     # The health_check extension is mandatory for this chart.
@@ -114,14 +116,14 @@ config:
           endpoint: ${env:MY_POD_IP}:4317
         http:
           endpoint: ${env:MY_POD_IP}:4318
-    # prometheus:
-    #   config:
-    #     scrape_configs:
-    #       - job_name: opentelemetry-collector
-    #         scrape_interval: 10s
-    #         static_configs:
-    #           - targets:
-    #               - ${env:MY_POD_IP}:8888
+    prometheus:
+      config:
+        scrape_configs:
+          - job_name: opentelemetry-collector
+            scrape_interval: 10s
+            static_configs:
+              - targets:
+                  - ${env:MY_POD_IP}:8888
     zipkin:
       endpoint: ${env:MY_POD_IP}:9411
   service:
@@ -143,13 +145,14 @@ config:
       metrics:
         exporters:
           - debug
-          - prometheus
+          - file
+          # - prometheus
         processors:
           - memory_limiter
           - batch
         receivers:
           - otlp
-          # - prometheus
+          - prometheus
       traces:
         exporters:
           - debug
