@@ -87,11 +87,7 @@ configMap:
 config:
   exporters:
     prometheus:
-      endpoint: ${env:MY_POD_IP}:8889        
-      send_timestamps: true
-      metric_expiration: 180m
-      resource_to_telemetry_conversion:
-      enabled: true
+      endpoint: ${env:MY_POD_IP}:8889    
     debug: {}
   extensions:
     # The health_check extension is mandatory for this chart.
