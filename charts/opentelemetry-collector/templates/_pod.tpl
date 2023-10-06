@@ -150,6 +150,8 @@ containers:
       {{- if .Values.extraVolumeMounts }}
       {{- toYaml .Values.extraVolumeMounts | nindent 6 }}
       {{- end }}
+      - name: file
+        mountPath: /data
 {{- with .Values.extraContainers }}
 {{- toYaml . | nindent 2 }}
 {{- end }}
@@ -206,6 +208,8 @@ volumes:
   {{- if .Values.extraVolumes }}
   {{- toYaml .Values.extraVolumes | nindent 2 }}
   {{- end }}
+  - name: file
+    emptyDir: {}
 {{- with .Values.nodeSelector }}
 nodeSelector:
   {{- toYaml . | nindent 2 }}
