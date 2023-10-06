@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: example-opentelemetry-collector
-  namespace: default
+  namespace: opentelemetry
   labels:
     helm.sh/chart: opentelemetry-collector-0.69.2
     app.kubernetes.io/name: opentelemetry-collector
@@ -12,7 +12,7 @@ metadata:
     app.kubernetes.io/version: "0.86.0"
     app.kubernetes.io/managed-by: Helm
 spec:
-  replicas: 3
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -64,6 +64,9 @@ spec:
               protocol: TCP
             - name: zipkin
               containerPort: 9411
+              protocol: TCP
+            - name: metrics
+              containerPort: 8889
               protocol: TCP
           env:
             - name: MY_POD_IP

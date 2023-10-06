@@ -4,7 +4,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: example-opentelemetry-collector
-  namespace: default
+  namespace: opentelemetry
   labels:
     helm.sh/chart: opentelemetry-collector-0.69.2
     app.kubernetes.io/name: opentelemetry-collector
@@ -14,6 +14,12 @@ metadata:
 data:
   relay: |
     exporters:
+      prometheus:
+        endpoint: ${env:MY_POD_IP}:8889        
+        send_timestamps: true
+        metric_expiration: 180m
+        resource_to_telemetry_conversion:
+          enabled: true
       debug: {}
     extensions:
       health_check: {}
@@ -40,14 +46,14 @@ data:
             endpoint: ${env:MY_POD_IP}:4317
           http:
             endpoint: ${env:MY_POD_IP}:4318
-      prometheus:
-        config:
-          scrape_configs:
-          - job_name: opentelemetry-collector
-            scrape_interval: 10s
-            static_configs:
-            - targets:
-              - ${env:MY_POD_IP}:8888
+      # prometheus:
+      #   config:
+      #     scrape_configs:
+      #     - job_name: opentelemetry-collector
+      #       scrape_interval: 10s
+      #       static_configs:
+      #       - targets:
+      #         - ${env:MY_POD_IP}:8888
       zipkin:
         endpoint: ${env:MY_POD_IP}:9411
     service:
@@ -65,13 +71,14 @@ data:
           - otlp
         metrics:
           exporters:
+          - prometheus
           - debug
           processors:
           - memory_limiter
           - batch
           receivers:
           - otlp
-          - prometheus
+          # - prometheus
         traces:
           exporters:
           - debug
