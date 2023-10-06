@@ -150,7 +150,7 @@ containers:
       {{- if .Values.extraVolumeMounts }}
       {{- toYaml .Values.extraVolumeMounts | nindent 6 }}
       {{- end }}
-      - name: file
+      - name: azurefileshare
         mountPath: /data
 {{- with .Values.extraContainers }}
 {{- toYaml . | nindent 2 }}
@@ -208,8 +208,11 @@ volumes:
   {{- if .Values.extraVolumes }}
   {{- toYaml .Values.extraVolumes | nindent 2 }}
   {{- end }}
-  - name: file
-    emptyDir: {}
+  - name: azurefileshare
+    azureFile:
+      secretName: storage-secret
+      shareName: myfileshare
+      readOnly: false
 {{- with .Values.nodeSelector }}
 nodeSelector:
   {{- toYaml . | nindent 2 }}
