@@ -3,9 +3,9 @@ entries:
   opentelemetry-collector:
   - apiVersion: v2
     appVersion: 0.86.0
-    created: "2023-10-10T17:38:12.6138943-04:00"
+    created: "2023-10-10T17:48:16.9123691-04:00"
     description: OpenTelemetry Collector Helm chart for Kubernetes
-    digest: a6d76498999b91a3d6b1db3a6a27a2f85cace52cf9c9c24ff040f1910dca250f
+    digest: a7e6d44cc65ddc3d69d8a23b47e2814b74914653dd582188aca07ddbee311408
     home: https://opentelemetry.io/
     icon: https://opentelemetry.io/img/logos/opentelemetry-logo-nav.png
     maintainers:
@@ -17,11 +17,11 @@ entries:
     - https://github.com/open-telemetry/opentelemetry-collector-contrib
     type: application
     urls:
-    - https://addream.github.io/opentelemetry-helm-charts/opentelemetry-collector-0.69.5.tgz
-    version: 0.69.5
+    - https://addream.github.io/opentelemetry-helm-charts/opentelemetry-collector-0.69.6.tgz
+    version: 0.69.6
   - apiVersion: v2
     appVersion: 0.86.0
-    created: "2023-10-10T17:38:12.6158945-04:00"
+    created: "2023-10-10T17:48:16.9150605-04:00"
     description: OpenTelemetry Collector Helm chart for Kubernetes
     digest: dc7126c86f88c8f32fa63ed4b8efee92e6394c65b78a340be01aa92dc8487500
     home: https://opentelemetry.io/
@@ -37,4 +37,4 @@ entries:
     urls:
     - https://addream.github.io/opentelemetry-helm-charts/charts/opentelemetry-collector-0.69.2.tgz
     version: 0.69.2
-generated: "2023-10-10T17:38:12.6118949-04:00"
+generated: "2023-10-10T17:48:16.9100438-04:00"
