@@ -91,7 +91,7 @@ config:
     file:
       path: /data/metrics.json  
     azuremonitor:
-      instrumentation_key: ""
+      instrumentation_key: "azure-monitor-secret-key"
     debug: {}
   extensions:
     # The health_check extension is mandatory for this chart.

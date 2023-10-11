@@ -152,6 +152,9 @@ containers:
       {{- end }}
       - name: azurefileshare
         mountPath: /data
+      - name: secret-volume
+        mountPath: /etc/secrets
+        readOnly: true
 {{- with .Values.extraContainers }}
 {{- toYaml . | nindent 2 }}
 {{- end }}
@@ -208,6 +211,9 @@ volumes:
   {{- if .Values.extraVolumes }}
   {{- toYaml .Values.extraVolumes | nindent 2 }}
   {{- end }}
+  - name: secret-volume
+    secret:
+      secretName: my-secret
   - name: azurefileshare
     azureFile:
       secretName: storage-secret
