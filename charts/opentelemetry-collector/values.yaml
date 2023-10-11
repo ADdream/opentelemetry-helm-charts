@@ -155,7 +155,6 @@ config:
           - batch
         receivers:
           - otlp
-          - azuremonitor
       traces:
         exporters:
           - debug
