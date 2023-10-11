@@ -86,10 +86,12 @@ configMap:
 # For example, {{ REDACTED_EMAIL }} becomes {{` {{ REDACTED_EMAIL }} `}}.
 config:
   exporters:
-    prometheus:
-      endpoint: ${env:MY_POD_IP}:8889  
+    # prometheus:
+    #   endpoint: ${env:MY_POD_IP}:8889  
     file:
       path: /data/metrics.json  
+    azuremonitor:
+      instrumentation_key: ""
     debug: {}
   extensions:
     # The health_check extension is mandatory for this chart.
@@ -137,6 +139,7 @@ config:
       logs:
         exporters:
           - debug
+          - azuremonitor
         processors:
           - memory_limiter
           - batch
@@ -146,16 +149,17 @@ config:
         exporters:
           - debug
           - file
-          - prometheus
+          - azuremonitor
         processors:
           - memory_limiter
           - batch
         receivers:
           - otlp
-          # - prometheus
+          - azuremonitor
       traces:
         exporters:
           - debug
+          - azuremonitor
         processors:
           - memory_limiter
           - batch
@@ -286,12 +290,12 @@ ports:
     containerPort: 8888
     servicePort: 8888
     protocol: TCP
-  prometheus:
-    enabled: true
-    containerPort: 8889
-    servicePort: 8889
-    hostPort: 8889
-    protocol: TCP
+  # prometheus:
+  #   enabled: true
+  #   containerPort: 8889
+  #   servicePort: 8889
+  #   hostPort: 8889
+  #   protocol: TCP
 
 # Resource limits & requests. Update according to your own use case as these values might be too low for a typical deployment.
 resources: {}
